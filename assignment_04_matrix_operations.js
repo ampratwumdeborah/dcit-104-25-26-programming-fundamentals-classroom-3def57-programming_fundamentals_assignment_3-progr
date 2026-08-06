@@ -65,7 +65,119 @@
 //
 
 // =============================================================================
-// YOUR CODE BELOW — remove the // symbols from the scaffold and fill it in
+const readlineSync = require("readline-sync");
+
+function readMatrix(rows, cols) {
+    let matrix = [];
+
+    for (let i = 0; i < rows; i++) {
+        let row = readlineSync.question("Enter row " + (i + 1) + ": ");
+        matrix.push(row.split(" ").map(Number));
+    }
+
+    return matrix;
+}
+
+function printMatrix(matrix) {
+    for (let i = 0; i < matrix.length; i++) {
+        console.log(matrix[i].join(" "));
+    }
+}
+
+function transposeMatrix(matrix) {
+    let result = [];
+
+    for (let i = 0; i < matrix[0].length; i++) {
+        result[i] = [];
+
+        for (let j = 0; j < matrix.length; j++) {
+            result[i][j] = matrix[j][i];
+        }
+    }
+
+    return result;
+}
+
+function addMatrices(matrix1, matrix2) {
+    let result = [];
+
+    for (let i = 0; i < matrix1.length; i++) {
+        result[i] = [];
+
+        for (let j = 0; j < matrix1[0].length; j++) {
+            result[i][j] = matrix1[i][j] + matrix2[i][j];
+        }
+    }
+
+    return result;
+}
+
+function multiplyMatrices(matrix1, matrix2) {
+    let result = [];
+
+    for (let i = 0; i < matrix1.length; i++) {
+        result[i] = [];
+
+        for (let j = 0; j < matrix2[0].length; j++) {
+            let sum = 0;
+
+            for (let k = 0; k < matrix2.length; k++) {
+                sum += matrix1[i][k] * matrix2[k][j];
+            }
+
+            result[i][j] = sum;
+        }
+    }
+
+    return result;
+}
+
+function main() {
+    console.log("PART A - Transpose Matrix");
+
+    let rows = readlineSync.questionInt("Enter number of rows: ");
+    let cols = readlineSync.questionInt("Enter number of columns: ");
+
+    let matrix = readMatrix(rows, cols);
+
+    console.log("\nOriginal Matrix:");
+    printMatrix(matrix);
+
+    console.log("\nTransposed Matrix:");
+    printMatrix(transposeMatrix(matrix));
+
+    console.log("\nPART B - Add Two Matrices");
+
+    rows = readlineSync.questionInt("Enter number of rows: ");
+    cols = readlineSync.questionInt("Enter number of columns: ");
+
+    console.log("Enter Matrix 1");
+    let matrix1 = readMatrix(rows, cols);
+
+    console.log("Enter Matrix 2");
+    let matrix2 = readMatrix(rows, cols);
+
+    console.log("\nSum Matrix:");
+    printMatrix(addMatrices(matrix1, matrix2));
+
+    console.log("\nPART C - Multiply Two Matrices");
+
+    let m = readlineSync.questionInt("Rows of Matrix A: ");
+    let n = readlineSync.questionInt("Columns of Matrix A: ");
+    let p = readlineSync.questionInt("Columns of Matrix B: ");
+
+    console.log("Enter Matrix A");
+    let matrixA = readMatrix(m, n);
+
+    console.log("Enter Matrix B");
+    let matrixB = readMatrix(n, p);
+
+    console.log("\nProduct Matrix:");
+    printMatrix(multiplyMatrices(matrixA, matrixB));
+}
+
+main();
+
 // =============================================================================
 
 const readlineSync = require('readline-sync');
