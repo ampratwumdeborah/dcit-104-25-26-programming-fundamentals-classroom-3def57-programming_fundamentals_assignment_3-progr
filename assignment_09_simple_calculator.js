@@ -69,9 +69,103 @@
 // - Handle invalid menu choices gracefully.
 //
 
-//
-// =============================================================================
-// YOUR CODE BELOW — remove the // symbols from the scaffold and fill it in
+//------------------------------------------------------------------------------
+
+const readlineSync = require("readline-sync");
+
+function add(a, b) {
+    return a + b;
+}
+
+function subtract(a, b) {
+    return a - b;
+}
+
+function multiply(a, b) {
+    return a * b;
+}
+
+function divide(a, b) {
+    if (b === 0) {
+        return null;
+    }
+
+    return a / b;
+}
+
+function modulus(a, b) {
+    return a % b;
+}
+
+function exponent(a, b) {
+    return a ** b;
+}
+
+function showMenu() {
+    console.log("\n============================");
+    console.log("     SIMPLE CALCULATOR");
+    console.log("============================");
+    console.log("1. Addition");
+    console.log("2. Subtraction");
+    console.log("3. Multiplication");
+    console.log("4. Division");
+    console.log("5. Modulus");
+    console.log("6. Exponentiation");
+    console.log("7. Quit");
+}
+
+function main() {
+    let choice;
+
+    while (choice !== 7) {
+        showMenu();
+
+        choice = readlineSync.questionInt("Select an operation (1-7): ");
+
+        if (choice === 7) {
+            console.log("Goodbye!");
+            break;
+        }
+
+        if (choice < 1 || choice > 7) {
+            console.log("Error: Invalid menu choice.");
+            continue;
+        }
+
+        let first = readlineSync.questionFloat("Enter first number: ");
+        let second = readlineSync.questionFloat("Enter second number: ");
+
+        let result;
+
+        if (choice === 1) {
+            result = add(first, second);
+            console.log("Result: " + first + " + " + second + " = " + result.toFixed(2));
+        } else if (choice === 2) {
+            result = subtract(first, second);
+            console.log("Result: " + first + " - " + second + " = " + result.toFixed(2));
+        } else if (choice === 3) {
+            result = multiply(first, second);
+            console.log("Result: " + first + " * " + second + " = " + result.toFixed(2));
+        } else if (choice === 4) {
+            result = divide(first, second);
+
+            if (result === null) {
+                console.log("Error: Cannot divide by zero.");
+            } else {
+                console.log("Result: " + first + " / " + second + " = " + result.toFixed(2));
+            }
+        } else if (choice === 5) {
+            result = modulus(first, second);
+            console.log("Result: " + first + " % " + second + " = " + result.toFixed(2));
+        } else if (choice === 6) {
+            result = exponent(first, second);
+            console.log("Result: " + first + " ** " + second + " = " + result.toFixed(2));
+        }
+    }
+}
+
+main();
+
 // =============================================================================
 
 
