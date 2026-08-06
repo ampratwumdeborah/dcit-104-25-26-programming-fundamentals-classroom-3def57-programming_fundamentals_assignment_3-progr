@@ -40,7 +40,109 @@
 //   print an error message and stop.
 //
 // =============================================================================
-// YOUR CODE BELOW — remove the // symbols from the scaffold and fill it in
+
+
+// =============================================================================
+// TASK: Array Statistics Calculator
 // =============================================================================
 
+const readline = require('readline-sync');
 
+// -----------------------------------------------------------------------------
+// STATISTICAL FUNCTIONS (Implemented without built-in helpers)
+// -----------------------------------------------------------------------------
+
+/**
+ * Calculates the sum of all numbers in the array using a loop.
+ */
+function computeSum(numbers) {
+    let sum = 0;
+    for (let i = 0; i < numbers.length; i++) {
+        sum += numbers[i];
+    }
+    return sum;
+}
+
+/**
+ * Calculates the average value of the numbers in the array.
+ */
+function computeAverage(numbers) {
+    if (numbers.length === 0) return 0;
+    return computeSum(numbers) / numbers.length;
+}
+
+/**
+ * Finds the maximum number in the array using a manual comparison loop.
+ */
+function computeMax(numbers) {
+    let max = numbers[0];
+    for (let i = 1; i < numbers.length; i++) {
+        if (numbers[i] > max) {
+            max = numbers[i];
+        }
+    }
+    return max;
+}
+
+/**
+ * Finds the minimum number in the array using a manual comparison loop.
+ */
+function computeMin(numbers) {
+    let min = numbers[0];
+    for (let i = 1; i < numbers.length; i++) {
+        if (numbers[i] < min) {
+            min = numbers[i];
+        }
+    }
+    return min;
+}
+
+// -----------------------------------------------------------------------------
+// MAIN PROGRAM EXECUTION
+// -----------------------------------------------------------------------------
+
+function main() {
+    // Read total count from user
+    const countInput = readline.question('How many numbers? ');
+    const n = parseInt(countInput, 10);
+
+    // Requirement check: N must be a positive integer (> 0)
+    if (isNaN(n) || n <= 0) {
+        console.log('Error: N must be a positive integer greater than zero.');
+        return;
+    }
+
+    const numbers = [];
+
+    // Read each number from the user
+    for (let i = 0; i < n; i++) {
+        const valInput = readline.question(`Enter number ${i + 1}: `);
+        const num = Number(valInput);
+
+        // Validate that input is a valid numeric value
+        if (isNaN(num) || valInput.trim() === '') {
+            console.log(`Error: "${valInput}" is not a valid number.`);
+            return;
+        }
+
+        numbers.push(num);
+    }
+
+    // Calculate results using dedicated functions
+    const sum = computeSum(numbers);
+    const average = computeAverage(numbers);
+    const max = computeMax(numbers);
+    const min = computeMin(numbers);
+
+    // Display results formatted to match specifications
+    console.log('\nResults:');
+    console.log(`Sum:     ${sum}`);
+    console.log(`Average: ${average}`);
+    console.log(`Maximum: ${max}`);
+    console.log(`Minimum: ${min}`);
+}
+
+// Run the main program
+main();
+
+// =============================================================================
